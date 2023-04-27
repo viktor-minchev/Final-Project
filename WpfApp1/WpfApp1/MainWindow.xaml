@@ -1,0 +1,39 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:final_projectDataSet x:Key="final_projectDataSet"/>
+        <CollectionViewSource x:Key="documentationViewSource" Source="{Binding documentation, Source={StaticResource final_projectDataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource documentationViewSource}">
+        <DataGrid x:Name="documentationDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" CanUserResizeColumns="True" CanUserAddRows="False" CanUserSortColumns="True" ItemsSource="{Binding}" Margin="10,51,10.333,9.667" RowDetailsVisibilityMode="VisibleWhenSelected" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="titleColumn" Binding="{Binding title}" Header="Title" Width="100"/>
+                <DataGridTextColumn x:Name="textColumn" Binding="{Binding text}" Header="Description" Width="300"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="DetailsButton">Details</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="BookmarkButton">Add to Bookmarks</Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="View Bookmarks" x:Name="Bookmarks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="174" Height="36" Click="Bookmarks_Click"/>
+        <Button Content="Snippets" x:Name="Snippets" HorizontalAlignment="Left" Margin="189,10,0,0" VerticalAlignment="Top" Width="129" Height="36" Click="Snippets_Click"/>
+        <Image HorizontalAlignment="Left" Height="37" Margin="746,10,0,0" VerticalAlignment="Top" Width="37" Source="H:\Final Project\Assets\vs_studio.png"/>
+
+    </Grid>
+</Window>
